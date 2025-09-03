@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - My Favourite Place Dubai</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #4a90e2);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Contact Hero Section */
+        .contact-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        linear-gradient(45deg, #27ae60, #2ecc71, #58d68d);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .contact-form-section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .contact-form h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            height: fit-content;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .info-item {
+            background: white;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .info-item h4 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Travel Tips Section */
+        .travel-tips {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+        }
+
+        .travel-tips h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: scale(1.05);
+        }
+
+        .tip-icon {
+            display: block;
+        }
+
+        .tip-icon img {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .tip-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Dubai Tourism Info */
+        .tourism-info {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .tourism-info h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tourism-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tourism-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .tourism-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tourism-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .contact-cta {
+            background: rgba(255,255,255,0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .cta-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Mobile Navigation - Pure CSS */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1e3c72;
+                flex-direction: column;
+                padding: 1rem 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.6s ease;
+            }
+
+            nav:hover .nav-links {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav li {
+                text-align: center;
+            }
+
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-hero p {
+                font-size: 1.2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-form-section h2, .travel-tips h2, .tourism-info h2 {
+                font-size: 2.5rem;
+            }
+
+            .contact-form, .contact-info {
+                padding: 2rem;
+            }
+
+            .cta-icon {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0 1rem;
+            }
+            
+            nav li {
+                text-align: center;
+            }
+
+            .contact-hero {
+                padding: 3rem 1rem;
+            }
+
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-hero p {
+                font-size: 1rem;
+            }
+
+            .contact-form-section, .travel-tips, .tourism-info {
+                padding: 3rem 1rem;
+            }
+
+            .contact-form-section h2, .travel-tips h2, .tourism-info h2 {
+                font-size: 2rem;
+            }
+
+            .contact-form, .contact-info {
+                padding: 1.5rem;
+            }
+
+            .tourism-card, .contact-cta {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <p class="logo">Dubai Explorer</p>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="favplacegallery.html">Gallery</a></li>
+                <li><a href="favplaceabout.html">About</a></li>
+                <li><a href="favplacecontact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span>☰</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p>Have questions about Dubai or want to share your own Dubai experiences? We'd love to hear from you!</p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <h2>Send Us a Message</h2>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3>Contact Form</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your Dubai experience or ask any questions..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Connect With Us</h3>
+                    
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <h4>Email</h4>
+                        <p>dubaiexplorer@example.com</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <h4>Phone</h4>
+                        <p>+91 7069331761</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <h4>Location</h4>
+                        <p>Dubai, United Arab Emirates</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🌐</span>
+                        <h4>Social Media</h4>
+                        <p>Follow us for daily Dubai updates and travel tips</p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⏰</span>
+                        <h4>Response Time</h4>
+                        <p>We typically respond within 24 hours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Tips Section */ -->
+    <section class="travel-tips">
+        <div class="container">
+            <h2>Dubai Travel Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://acko-cms.ackoassets.com/Best_Time_to_Visit_Dubai_4f29d24100.png" alt="Best Time to Visit"></span>
+                    <h3>Best Time to Visit</h3>
+                    <p>November to March offers the most pleasant weather with cooler temperatures perfect for outdoor activities.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://thumbs.dreamstime.com/b/united-arab-emirates-money-dirham-business-background-united-arab-emirates-money-business-background-175026134.jpg?w=1200" alt="Currency"></span>
+                    <h3>Currency</h3>
+                    <p>UAE Dirham (AED) is the local currency. Credit cards are widely accepted throughout the city.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://www.viriksonholidays.co.uk/theme/uploads/61.webp" alt="Must-Do Activities"></span>
+                    <h3>Must-Do Activities</h3>
+                    <p>Visit Burj Khalifa, Dubai Mall, Desert Safari, Dubai Marina, and experience the traditional souks.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://www.palmmonorail.com//images/blog/main-img-tot.webp" alt="Transportation"></span>
+                    <h3>Transportation</h3>
+                    <p>Dubai Metro, taxis, and ride-sharing apps make getting around the city convenient and efficient.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://nrluxury.properties/wp-content/uploads/2024/05/dress-code-scaled.jpg" alt="Dress Code"></span>
+                    <h3>Dress Code</h3>
+                    <p>Dress modestly in public areas. Light, breathable fabrics are recommended due to the warm climate.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST7ybH-AalgGZP4sSgkCrs4TOZcUQTx_ejAw&s" alt="Language"></span>
+                    <h3>Language</h3>
+                    <p>Arabic is official, but English is widely spoken. Many signs and menus are in both languages.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dubai Tourism Info -->
+    <section class="tourism-info">
+        <div class="container">
+            <h2>Plan Your Dubai Adventure</h2>
+            <div class="tourism-content">
+                <div class="tourism-card">
+                    <h3>🏨 Accommodation</h3>
+                    <p>Dubai offers luxury hotels, budget-friendly options, and unique experiences like staying in the iconic Burj Al Arab or Atlantis The Palm. Book in advance for better deals and availability.</p>
+                </div>
+
+                <div class="tourism-card">
+                    <h3>🎫 Attractions Booking</h3>
+                    <p>Many attractions offer online booking with discounts. Consider Dubai Tourist Packages for multiple attractions. Popular apps include Dubai Parks and Resorts official app.</p>
+                </div>
+
+                <div class="tourism-card">
+                    <h3>🍽️ Dining Experiences</h3>
+                    <p>From street food at Al Seef to fine dining with Burj Khalifa views, Dubai's culinary scene is incredible. Try traditional Emirati cuisine and international flavors.</p>
+                </div>
+
+                <div class="contact-cta">
+                    <span class="cta-icon">✈️</span>
+                    <h3>Ready to Explore Dubai?</h3>
+                    <p>Start planning your dream trip to the most amazing city in the world. Contact us for personalized travel recommendations and insider tips!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 My Favourite Place - Dubai Project. Created for BCA Semester I.</p>
+            <p>🇦🇪 "Connect with us and discover the magic of Dubai together!" 🇦🇪</p>
+        </div>
+    </footer>
+
+
+</body>
+</html>

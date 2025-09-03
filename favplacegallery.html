@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai Gallery - My Favourite Place</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #4a90e2);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Gallery Hero Section */
+        .gallery-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        linear-gradient(45deg, #f39c12, #e67e22, #d35400);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .gallery-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        .gallery-hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            animation: slideInFromBottom 1s ease-out;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Categories */
+        .gallery-categories {
+            padding: 3rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid #4a90e2;
+            color: #4a90e2;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        /* Gallery Section Headers */
+        .gallery-section {
+            padding: 4rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Attractions Section */
+        .attractions {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        /* Culture Section */
+        .culture {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+        }
+
+        /* Nature Section */
+        .nature {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .gallery-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .gallery-content p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+
+        .location-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Virtual Tour Section */
+        .virtual-tour {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .virtual-tour h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tour-showcase {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tour-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: slide 3s infinite;
+        }
+
+        .tour-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tour-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: rotate360 10s linear infinite;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes slide {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes rotate360 {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Mobile Navigation - Pure CSS */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1e3c72;
+                flex-direction: column;
+                padding: 1rem 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.6s ease;
+            }
+
+            nav:hover .nav-links {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav li {
+                text-align: center;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .virtual-tour h2 {
+                font-size: 2.5rem;
+            }
+
+            .tour-showcase {
+                padding: 2rem;
+            }
+
+            .tour-icon {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0 1rem;
+            }
+            
+            nav li {
+                text-align: center;
+            }
+
+            .gallery-hero {
+                padding: 3rem 1rem;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1rem;
+            }
+
+            .gallery-section, .virtual-tour {
+                padding: 3rem 1rem;
+            }
+
+            .section-title, .virtual-tour h2 {
+                font-size: 2rem;
+            }
+
+            .gallery-content {
+                padding: 1rem;
+            }
+
+            .tour-showcase {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Dubai Explorer</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="favplacegallery.html" class="active">Gallery</a></li>
+                <li><a href="favplaceabout.html">About</a></li>
+                <li><a href="favplacecontact.html">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span>☰</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="container">
+            <h1>Dubai Gallery</h1>
+            <p>Explore the stunning beauty and magnificent attractions of Dubai through this visual journey</p>
+        </div>
+    </section>
+
+    <!-- Gallery Categories -->
+    <section class="gallery-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <a href="#attractions" class="tab-button">Attractions</a>
+                <a href="#architecture" class="tab-button">Architecture</a>
+                <a href="#culture" class="tab-button">Culture</a>
+                <a href="#nature" class="tab-button">Nature</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Gallery -->
+    <section class="gallery-section attractions" id="attractions">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🏛️ Attractions</h2>
+                <p class="section-subtitle">Discover Dubai's most iconic landmarks and must-visit destinations</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://www.visitdubai.com/-/media/gathercontent/poi/b/burj-khalifa/fallback-image/poi-burj-khalifa-3-dtcm-jun-2023.jpg" alt="Burj Khalifa"></div>
+                    <div class="gallery-content">
+                        <h3>Burj Khalifa</h3>
+                        <p>The world's tallest building standing at 828 meters, offering breathtaking views of the entire city and beyond.</p>
+                        <span class="location-tag">Downtown Dubai</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://cdn.enjoytravel.com/img/Big7Enjoy/en/travel-news/interesting-facts/interesting-facts-the-burj-al-arab-hotel/its_record_breaking.webp" alt="Burj Al Arab"></div>
+                    <div class="gallery-content">
+                        <h3>Burj Al Arab</h3>
+                        <p>The iconic sail-shaped luxury hotel that has become the symbol of Dubai's opulence and architectural brilliance.</p>
+                        <span class="location-tag">Jumeirah Beach</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://cdn.excelproperties.ae/media/blog/content/The_Dubai_Mall_1280x720.webp?width=640&height=480&aspect_ratio=16:9&format=webp&quality=90" alt="Dubai Mall"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Mall</h3>
+                        <p>World's largest shopping destination with over 1,200 stores, aquarium, ice rink, and countless entertainment options.</p>
+                        <span class="location-tag">Downtown Dubai</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://da28ojrjakn6f.cloudfront.net/tickets/44413/NEW/img_1730117486_1730117567__frame2.jpg?v=1.1.0" alt="Dubai Frame"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Frame</h3>
+                        <p>A magnificent architectural landmark that frames stunning views of both old and new Dubai in one spectacular view.</p>
+                        <span class="location-tag">Zabeel Park</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://content.presspage.com/uploads/2041/1920_phy2015.rst.ath.atlantiswithpalm-top-landscape-hr.jpg?10000" alt="Atlantis The Palm"></div>
+                    <div class="gallery-content">
+                        <h3>Atlantis The Palm</h3>
+                        <p>Luxury resort on the iconic Palm Jumeirah island with amazing aquariums and water parks.</p>
+                        <span class="location-tag">Palm Jumeirah</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://media.cnn.com/api/v1/images/stellar/prod/170509143610-dubai-miracle-garden-aerial-view.jpg?q=w_1600,h_900,x_0,y_0,c_fill/h_447" alt="Dubai Miracle Garden"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Miracle Garden</h3>
+                        <p>World's largest flower garden with over 150 million flowers arranged in stunning artistic displays.</p>
+                        <span class="location-tag">Dubailand</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Gallery -->
+    <section class="gallery-section architecture" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🏗️ Architecture</h2>
+                <p class="section-subtitle">Marvel at Dubai's stunning architectural achievements and innovative designs</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://www.visitdubai.com/-/media/gathercontent/poi/d/dubai-marina/dubai-marina-det-1.jpg" alt="Dubai Marina"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Marina</h3>
+                        <p>A stunning man-made marina district with towering skyscrapers and luxury waterfront living spaces.</p>
+                        <span class="location-tag">Dubai Marina</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/93/89/0b/caption.jpg?w=900&h=-1&s=1" alt="Emirates Towers"></div>
+                    <div class="gallery-content">
+                        <h3>Emirates Towers</h3>
+                        <p>Twin skyscrapers representing Dubai's business excellence and architectural sophistication in the heart of the city.</p>
+                        <span class="location-tag">Sheikh Zayed Road</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://imgengine.khaleejtimes.com/khaleejtimes/import/images/w3u5d-ZC1ebB2--LNoJ1FjPxFs8.jpg?width=600&height=400&format=auto" alt="Museum of the Future"></div>
+                    <div class="gallery-content">
+                        <h3>Museum of the Future</h3>
+                        <p>An architectural masterpiece showcasing innovation and technology with its unique torus-shaped design.</p>
+                        <span class="location-tag">Financial District</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/da/1a/93/2-000-seats-2-000-perspectives.jpg?w=900&h=500&s=1" alt="Dubai Opera"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Opera</h3>
+                        <p>A stunning performing arts venue with dhow-inspired architecture hosting world-class performances.</p>
+                        <span class="location-tag">Downtown Dubai</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://mediaim.expedia.com/destination/2/c2d379be9ba71cacac035146896a8dab.jpg" alt="Business Bay Bridge"></div>
+                    <div class="gallery-content">
+                        <h3>Business Bay Bridge</h3>
+                        <p>Modern bridge connecting key business districts with elegant design and beautiful lighting.</p>
+                        <span class="location-tag">Business Bay</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://luxhabitat.ae/resizedimages/1920w/development/343/source/33eb37783e1381fab478bbdff1746198c4c0cc3043678eba19bbfec4e0accb13.jpg" alt="Cayan Tower"></div>
+                    <div class="gallery-content">
+                        <h3>Cayan Tower</h3>
+                        <p>The world's tallest twisted tower showcasing innovative engineering and breathtaking spiral design.</p>
+                        <span class="location-tag">Dubai Marina</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Gallery -->
+    <section class="gallery-section culture" id="culture">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🕌 Culture</h2>
+                <p class="section-subtitle">Experience the rich heritage and vibrant traditions of Dubai and UAE</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://media1.thrillophilia.com/filestore/d3oonv2c8zx786abauwckrm22m3l_1496315557_42-32305505-1680x1050.jpg" alt="Jumeirah Mosque"></div>
+                    <div class="gallery-content">
+                        <h3>Jumeirah Mosque</h3>
+                        <p>Beautiful mosque showcasing traditional Islamic architecture and offering cultural tours for visitors.</p>
+                        <span class="location-tag">Jumeirah</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://www.trawell.in/admin/images/upload/123159405dubai_gold_souk.jpg" alt="Gold Souk"></div>
+                    <div class="gallery-content">
+                        <h3>Gold Souk</h3>
+                        <p>Traditional marketplace showcasing the finest gold jewelry and precious stones from around the world.</p>
+                        <span class="location-tag">Deira</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/UAE_Dubai_Al_Fahidi_Fort_img1_asv2018-01.jpg" alt="Dubai Museum"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Museum</h3>
+                        <p>Historical museum in Al Fahidi Fort showcasing Dubai's transformation from fishing village to global metropolis.</p>
+                        <span class="location-tag">Al Fahidi</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://cdn-imgix.headout.com/media/images/e078ca9ac4c1e125f0fef5b06056e107-EU%20.jpg?auto=format&q=90&crop=faces&fit=crop" alt="Cultural Village"></div>
+                    <div class="gallery-content">
+                        <h3>Cultural Village</h3>
+                        <p>Traditional Emirati culture experience with authentic food, crafts, and performances in heritage settings.</p>
+                        <span class="location-tag">Al Seef</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://hhoteldubai.com/wp-content/uploads/2024/04/3_3_11zon.webp" alt="Alserkal Avenue"></div>
+                    <div class="gallery-content">
+                        <h3>Alserkal Avenue</h3>
+                        <p>Contemporary arts and culture district featuring galleries, studios, and creative spaces for modern art.</p>
+                        <span class="location-tag">Al Quoz</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://images.ctfassets.net/r2cfrvo3y08m/5SKJSzhqPe6BtZgWojbQ1t/644c094d23ddab57f2e9211c101c88c6/ECD_Hero_HaiRamadan_1440x900.png?w=2240&h=1344" alt="Ramadan Traditions"></div>
+                    <div class="gallery-content">
+                        <h3>Ramadan Traditions</h3>
+                        <p>Experience the spiritual and cultural significance of Ramadan with beautiful decorations and community gatherings.</p>
+                        <span class="location-tag">City Wide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nature Gallery -->
+    <section class="gallery-section nature" id="nature">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🌿 Nature</h2>
+                <p class="section-subtitle">Explore Dubai's natural beauty from deserts to beaches and green spaces</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://cdn.twocontinents.com/cdn-cgi/image/width=3840/https://cdn.twocontinents.com/pustynne_safari_w_dubaju_dcdd154edc.webp" alt="Desert Safari"></div>
+                    <div class="gallery-content">
+                        <h3>Desert Safari</h3>
+                        <p>Thrilling adventure in the golden dunes with camel riding, sandboarding, and traditional Bedouin experiences.</p>
+                        <span class="location-tag">Arabian Desert</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://mlrhpz8jmuut.i.optimole.com/cb:w8qn.502d1/w:auto/h:auto/q:mauto/f:best/ig:avif/id:f4db846b0bc3051f2abe47011377f1ba/https://www.egypttoursplus.com/Jumeirah-Beach.jpg" alt="Jumeirah Beach"></div>
+                    <div class="gallery-content">
+                        <h3>Jumeirah Beach</h3>
+                        <p>Pristine white sand beach with crystal clear waters and stunning views of iconic Dubai landmarks.</p>
+                        <span class="location-tag">Jumeirah</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://gmz.ae/wp-content/uploads/2025/02/Miracle-Garden-Dubai.png" alt="Dubai Miracle Garden"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Miracle Garden</h3>
+                        <p>Stunning flower garden with over 150 million blooms creating magnificent floral sculptures and displays.</p>
+                        <span class="location-tag">Dubailand</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://media1.thrillophilia.com/filestore/ipamyjaypu60rmt2bsbniian0ajf_Butterfly_Garden_at_Dubai_9eaef321a5.jpg" alt="Butterfly Garden"></div>
+                    <div class="gallery-content">
+                        <h3>Butterfly Garden</h3>
+                        <p>Magical indoor garden housing thousands of beautiful butterflies from around the world in climate-controlled domes.</p>
+                        <span class="location-tag">Dubailand</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/The_view_of_Dubai_Creek.jpg/1200px-The_view_of_Dubai_Creek.jpg" alt="Dubai Creek"></div>
+                    <div class="gallery-content">
+                        <h3>Dubai Creek</h3>
+                        <p>Historic waterway that divides the city, offering traditional dhow cruises and mangrove experiences.</p>
+                        <span class="location-tag">Deira & Bur Dubai</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image"><img src="https://plus.unsplash.com/premium_photo-1661962388409-eb7a041606fb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZHViYWklMjBjYW1lbHxlbnwwfHwwfHx8MA%3D%3D" alt="Camel Farm"></div>
+                    <div class="gallery-content">
+                        <h3>Camel Farm</h3>
+                        <p>Experience traditional desert life and interact with camels in their natural desert environment.</p>
+                        <span class="location-tag">Desert Conservation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Tour Section -->
+    <section class="virtual-tour">
+        <div class="container">
+            <h2>Experience Dubai</h2>
+            <div class="tour-showcase">
+                <div class="tour-content">
+                    <div class="tour-icon">🌟</div>
+                    <h3>Virtual Dubai Experience</h3>
+                    <p>Imagine walking through the bustling streets of Dubai Marina, feeling the cool breeze from the Persian Gulf, hearing the call to prayer echoing through the city, and witnessing the spectacular fountain show at Burj Khalifa. Dubai is not just a destination - it's an experience that touches all your senses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 My Favourite Place - Dubai Project. Created for BCA Semester I.</p>
+            <p>🇦🇪 Discover the magic and wonder of Dubai! 🇦🇪</p>
+        </div>
+    </footer>
+</body>
+</html>
