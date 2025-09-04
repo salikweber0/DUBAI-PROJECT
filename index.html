@@ -67,10 +67,23 @@
             background-color: rgba(255,255,255,0.3);
         }
 
-        .menu-toggle {
-            display: none;
+        #menu-toggle {
+             display: none;
         }
+            
+            #menu-toggle:checked ~ .nav-links {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
 
+/* Menu icon */
+.menu-icon {
+  display: none;
+  font-size: 35px;
+  cursor: pointer;
+  color: white;
+}
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -296,15 +309,16 @@
                 visibility: hidden;
                 transition: all 0.6s ease;
             }
-
-            nav:hover .nav-links {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
             
             nav li {
                 text-align: center;
+            }
+
+            .menu-icon {
+             display: block;
+              }
+          .nav-links {
+             display: flex;
             }
 
             .hero-content h1 {
@@ -466,19 +480,22 @@
 <body>
     <!-- Header -->
     <header>
-        <nav>
-            <p class="logo">Dubai Explorer</p>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="favplacegallery.html">Gallery</a></li>
-                <li><a href="favplaceabout.html">About</a></li>
-                <li><a href="favplacecontact.html">Contact</a></li>
-            </ul>
-            <div class="menu-toggle">
-                <span>☰</span>
-            </div>
-        </nav>
-    </header>
+  <nav>
+    <p class="logo">Dubai Explorer</p>
+
+    <!-- Hidden checkbox -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">☰</label>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="favplacegallery.html">Gallery</a></li>
+      <li><a href="favplaceabout.html">About</a></li>
+      <li><a href="favplacecontact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
 
     <!-- Hero Section -->
     <section class="hero" id="home">
